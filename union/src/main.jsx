@@ -25,12 +25,12 @@ import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 
 import './index.css'
-import { AuthProviderComponent } from "./context/AuthContext.jsx";
+import { AuthProviderComponent } from "./context/AuthContext";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Router>
-      <CustomTokenContextProvider>
+      <AuthProviderComponent>
         <Menu />
         <div className="pages" id="pages">
           <Routes>
@@ -45,7 +45,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="/*" element={<NotFoundPage />} />
           </Routes>
         </div>
-      </CustomTokenContextProvider>
+      </AuthProviderComponent>
     </Router>
   </React.StrictMode>
 )

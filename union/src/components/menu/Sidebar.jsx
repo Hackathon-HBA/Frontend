@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { TokenContext } from "../../utils/TokenContext";
+import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 import SidebarLink from "./SidebarLink";
@@ -16,7 +16,8 @@ import isAuth from "../../utils/isAuth";
 const Sidebar = ({ handleSectionChange }) => {
   const [activeLink, setActiveLink] = useState("home");
   const navigate = useNavigate();
-  const { token, setToken, loggedUser } = useContext(TokenContext);
+  //const { token, setToken, loggedUser } = useContext(TokenContext);
+  const { setToken, setLogin, setAuth, token, userData } = useContext(AuthContext);
 
 
   useEffect(() => {
@@ -45,6 +46,8 @@ const Sidebar = ({ handleSectionChange }) => {
   };
 
   const handleLogout = () => {
+    setToken("");
+    localStorage.removeItem("userData");
     navigate("/");
   };
 
@@ -156,19 +159,12 @@ const Sidebar = ({ handleSectionChange }) => {
               )}
             </div>
           </div>
-          {isAuth(token) && (
+          {isAuth(token) && userData && (
             <div className="sidebar__account">
-              {loggedUser.avatar && (
-                <img
-                  src={`${import.meta.env.VITE_BACKEND_URL}/${loggedUser.avatar}`}
-                  alt={loggedUser.name}
-                  className="sidebar__perfil"
-                />
-              )}
 
               <div className="sidebar__names">
-                <h3 className="sidebar__name">{loggedUser.nickName}</h3>
-                <span className="sidebar__email">{loggedUser.email}</span>
+                <h3 className="sidebar__name">{userData.name} {userData.lastname}</h3>
+                <span className="sidebar__email">{userData.email}</span>
               </div>
             </div>
           )}

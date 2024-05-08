@@ -20,7 +20,7 @@ export const AuthProviderComponent = ({ children }) => {
     localStorage.setItem("token", token);
     localStorage.setItem("auth", auth);
 
-    if (token !== " ") {
+    if (token !== "") {
       try {
         const decodedToken = jwtDecode(token);
         localStorage.setItem("userData", JSON.stringify(decodedToken)); // Guardar userData como cadena JSON

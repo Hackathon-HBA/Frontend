@@ -1,45 +1,66 @@
 import axios from "axios";
-import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState, useEffect} from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./Login.css";
 import whiteLogo from "../../assets/fakNews-white-logo-no-bg.svg";
 
 import { ToastContainer, toast } from "react-toastify";
-import { TokenContext } from "../../utils/TokenContext";
 import "react-toastify/dist/ReactToastify.css";
 
+import { activateUserService, loginUserService } from "../../services/index";
+import { AuthContext } from "../../context/AuthContext";
+
+
 const Login = () => {
-  const [nickName, setnickName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-  const { setToken } = useContext(TokenContext);
+    const navigate = useNavigate();
 
-  const logUser = async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("nickName", nickName);
-    formData.append("email", email);
-    formData.append("password", password);
-
-    try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/login`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const { setToken, setLogin, setAuth } = useContext(AuthContext);
+  
+    const { token } = useParams();
+    const [activated, setActivated] = useState(false);
+    const [initialLoad, setInitialLoad] = useState(true);
+  
+    useEffect(() => {
+      if (initialLoad) {
+        setInitialLoad(false);
+        return;
+      }
+  
+      if (token && !activated) {
+        activateAccount(token);
+      }
+    }, [token, activated, initialLoad]);
+  
+    const submitHandler = async (e) => {
+      e.preventDefault();
+  
+      try {
+        const data = await loginUserService({ email, password });
+        setToken(data);
+        setLogin(true);
+        setAuth(true);
+  
+        if (data) return navigate("/");
+      } catch (error) {
+        toast.error(error.message);
+      }
+    };
+  
+    const activateAccount = async (token) => {
+      try {
+        const response = await activateUserService({ token });
+  
+        if (response.message === "Account activated successfully") {
+          toast.success("Account activated successfully");
+          setActivated(true);
         }
-      );
-      toast.success("¡Bienvenido/a!");
-      setToken(res.data.token)
-      navigate("/");
-    } catch (error) {
-      toast.error("Revisa los datos introducidos");
-    }
-  };
+        if (response) return navigate("/account/myprofile");
+      } catch (error) {
+        toast.error(error.message);
+      }
+    };
 
   return (
     <>
@@ -48,15 +69,15 @@ const Login = () => {
         <h1>Accede a tu perfil</h1>
 
         <div className="input-container">
-          <form className="loginForm" onSubmit={logUser}>
+          <form className="loginForm" onSubmit={submitHandler}>
             <input
               type="text"
               onChange={(e) =>
-                setnickName(e.target.value) || setEmail(e.target.value)
+                setEmail(e.target.value)
               }
               id="user"
               name="user"
-              placeholder="Nickname o Email"
+              placeholder="Email"
               className="loginNickname"
               required
             />
