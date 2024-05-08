@@ -3,10 +3,10 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./index.css";
 //import Profile from "./pages/UserProfile/Profile";
-//import Contact from "./pages/Contact/Contact";
+import Contact from "./pages/Contact/Contact";
 
 
-//import About from "./pages/about/About";
+import About from "./pages/about/About";
 //import Admin from "./pages/Admin/Admin";
 //import User from "./pages/Admin/User";
 
@@ -37,10 +37,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="/" element={<HomePage />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            {/* <Route path="/profile" element={<Profile />} />
+            {/* <Route path="/profile" element={<Profile />} /> */}
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
-            {PrivateRoute() ? (<Route path="/admin" element={<Admin />} />) : <Route path="/*" element={<Error />} />}
+            {/* {PrivateRoute() ? (<Route path="/admin" element={<Admin />} />) : <Route path="/*" element={<Error />} />}
             {PrivateRoute() ? (<Route path="/users" element={<User />} />) : <Route path="/*" element={<Error />} />} */}
             <Route path="/*" element={<NotFoundPage />} />
           </Routes>
