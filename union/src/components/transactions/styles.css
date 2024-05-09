@@ -1,0 +1,31 @@
+.container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .filter-section {
+    margin-bottom: 20px;
+  }
+  
+  .select-category, .select-transaction-type, .filter-button {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+  }
+  
+  .transaction-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  
+  .transaction-table th, .transaction-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .transaction-table th {
+    background-color: #f2f2f2;
+  }
+  
