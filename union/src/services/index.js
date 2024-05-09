@@ -1,5 +1,3 @@
-// connect to DB
-
 export const registerUserService = async ({ username, email, password }) => {
   try {
     const response = await fetch(
@@ -171,7 +169,8 @@ export const updataUserPasswordService = async ({ password, token, id }) => {
 // ========== Accounts ==========
 export const createAccountService = async ({ user_id, cc_num }) => {
   try {
-    const response = await fetch(`${VITE_APP_BACKEND}/accounts`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts`, {
+
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -192,7 +191,7 @@ export const createAccountService = async ({ user_id, cc_num }) => {
 
 export const getAccountService = async ({ user_id }) => {
   try {
-    const response = await fetch(`${VITE_APP_BACKEND}/accounts/${user_id}`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${user_id}`, {
       method: 'GET',
     });
 
@@ -208,12 +207,15 @@ export const getAccountService = async ({ user_id }) => {
 };
 
 // ========== Transactions ==========
-export const createTransactionService = async (transactionData) => {
+export const createTransactionService = async (transactionData, token) => {
   try {
-    const response = await fetch(`${VITE_APP_BACKEND}/transactions`, {
+    console.log(transactionData);
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/transactions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: token,
+
       },
       body: JSON.stringify(transactionData),
     });
@@ -231,7 +233,7 @@ export const createTransactionService = async (transactionData) => {
 
 export const getTransactionsByAccountService = async ({ cc_num }) => {
   try {
-    const response = await fetch(`${VITE_APP_BACKEND}/transactions/account/${cc_num}`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/transactions/account/${cc_num}`, {
       method: 'GET',
     });
 
@@ -248,7 +250,7 @@ export const getTransactionsByAccountService = async ({ cc_num }) => {
 
 export const getTransactionByIdService = async ({ id }) => {
   try {
-    const response = await fetch(`${VITE_APP_BACKEND}/transactions/${id}`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/transactions/${id}`, {
       method: 'GET',
     });
 
@@ -265,7 +267,7 @@ export const getTransactionByIdService = async ({ id }) => {
 
 export const updateTransactionService = async ({ id, transactionData }) => {
   try {
-    const response = await fetch(`${VITE_APP_BACKEND}/transactions/${id}`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/transactions/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -286,7 +288,7 @@ export const updateTransactionService = async ({ id, transactionData }) => {
 
 export const deleteTransactionService = async ({ id }) => {
   try {
-    const response = await fetch(`${VITE_APP_BACKEND}/transactions/${id}`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/transactions/${id}`, {
       method: 'DELETE',
     });
 
@@ -303,7 +305,7 @@ export const deleteTransactionService = async ({ id }) => {
 
 export const listTransactionsByCategoryService = async ({ category }) => {
   try {
-    const response = await fetch(`${VITE_APP_BACKEND}/transactions/category/${category}`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/transactions/category/${category}`, {
       method: 'GET',
     });
 
@@ -320,7 +322,7 @@ export const listTransactionsByCategoryService = async ({ category }) => {
 
 export const getExpensesByAccountService = async ({ cc_num }) => {
   try {
-    const response = await fetch(`${VITE_APP_BACKEND}/accounts/${cc_num}/expenses`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/expenses`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -340,7 +342,7 @@ export const getExpensesByAccountService = async ({ cc_num }) => {
 
 export const getIncomesByAccountService = async ({ cc_num }) => {
   try {
-    const response = await fetch(`${VITE_APP_BACKEND}/accounts/${cc_num}/incomes`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/incomes`, {
       method: 'GET',
     });
 
@@ -357,7 +359,7 @@ export const getIncomesByAccountService = async ({ cc_num }) => {
 
 export const getTotalExpensesByAccountService = async ({ cc_num }) => {
   try {
-    const response = await fetch(`${VITE_APP_BACKEND}/accounts/${cc_num}/expenses/total`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/expenses/total`, {
       method: 'GET',
     });
 
@@ -374,7 +376,7 @@ export const getTotalExpensesByAccountService = async ({ cc_num }) => {
 
 export const getTotalIncomesByAccountService = async ({ cc_num }) => {
   try {
-    const response = await fetch(`${VITE_APP_BACKEND}/accounts/${cc_num}/incomes/total`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/incomes/total`, {
       method: 'GET',
     });
 
@@ -391,7 +393,7 @@ export const getTotalIncomesByAccountService = async ({ cc_num }) => {
 
 export const getExpensesByCategoryAndAccountService = async ({ cc_num, category }) => {
   try {
-    const response = await fetch(`${VITE_APP_BACKEND}/accounts/${cc_num}/expenses/category/${category}`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/expenses/category/${category}`, {
       method: 'GET',
     });
 
@@ -408,7 +410,7 @@ export const getExpensesByCategoryAndAccountService = async ({ cc_num, category 
 
 export const getIncomesByCategoryAndAccountService = async ({ cc_num, category }) => {
   try {
-    const response = await fetch(`${VITE_APP_BACKEND}/accounts/${cc_num}/incomes/category/${category}`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/incomes/category/${category}`, {
       method: 'GET',
     });
 
@@ -425,7 +427,7 @@ export const getIncomesByCategoryAndAccountService = async ({ cc_num, category }
 
 export const listTransactionsByDateRangeAndAccountService = async ({ startDate, endDate, cc_num }) => {
   try {
-    const response = await fetch(`${VITE_APP_BACKEND}/transactions/daterange?startDate=${startDate}&endDate=${endDate}&cc_num=${cc_num}`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/transactions/daterange?startDate=${startDate}&endDate=${endDate}&cc_num=${cc_num}`, {
       method: 'GET',
     });
 
