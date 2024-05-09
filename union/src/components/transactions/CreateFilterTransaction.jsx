@@ -1,232 +1,106 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
-  getTransactionsByAccountService,
-  getTransactionByIdService,
-  listTransactionsByCategoryService,
-  getExpensesByAccountService,
-  getIncomesByAccountService,
-  getTotalExpensesByAccountService,
-  getTotalIncomesByAccountService,
+  getAccountService,
   getExpensesByCategoryAndAccountService,
   getIncomesByCategoryAndAccountService,
-  listTransactionsByDateRangeAndAccountService,
 } from "../../services/index";
+import { AuthContext } from "../../context/AuthContext";
 
-const TransactionFilterPage = () => {
-  const [ccNum, setCcNum] = useState("");
-  const [id, setId] = useState("");
+const CreateFilterTransaction = () => {
+  const [totalIncomes, setTotalIncomes] = useState(null);
+  const [error, setError] = useState(null);
+  const [accountData, setAccountData] = useState(null);
+  const { userData, token } = useContext(AuthContext);
   const [category, setCategory] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
   const [transactions, setTransactions] = useState([]);
-  const [expenses, setExpenses] = useState([]);
-  const [incomes, setIncomes] = useState([]);
-  const [totalExpenses, setTotalExpenses] = useState(0);
-  const [totalIncomes, setTotalIncomes] = useState(0);
+  const [transactionType, setTransactionType] = useState("expenses");
 
-  const handleFilterByAccount = async () => {
-    try {
-      const accountTransactions = await getTransactionsByAccountService({
-        cc_num: ccNum,
-      });
-      setTransactions(accountTransactions);
-    } catch (error) {
-      console.error("Error filtering transactions by account:", error.message);
-    }
-  };
-
-  const handleFilterById = async () => {
-    try {
-      const transaction = await getTransactionByIdService({ id });
-      setTransactions([transaction]);
-    } catch (error) {
-      console.error("Error filtering transaction by ID:", error.message);
-    }
-  };
-
-  const handleFilterByCategory = async () => {
-    try {
-      const categoryTransactions = await listTransactionsByCategoryService({
-        category,
-      });
-      setTransactions(categoryTransactions);
-    } catch (error) {
-      console.error("Error filtering transactions by category:", error.message);
-    }
-  };
-
-  const handleFilterByDateRange = async () => {
-    try {
-      const dateRangeTransactions =
-        await listTransactionsByDateRangeAndAccountService({
-          startDate,
-          endDate,
-          cc_num: ccNum,
+  useEffect(() => {
+    const fetchAccountData = async () => {
+      try {
+        const data = await getAccountService({
+          user_id: userData.userId,
+          token: token,
         });
-      setTransactions(dateRangeTransactions);
-    } catch (error) {
-      console.error(
-        "Error filtering transactions by date range:",
-        error.message
-      );
-    }
-  };
+        setAccountData(data[0].cc_num);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
 
-  const handleFilterExpenses = async () => {
-    try {
-      const expensesData = await getExpensesByAccountService({ cc_num: ccNum });
-      setExpenses(expensesData);
-    } catch (error) {
-      console.error("Error fetching expenses:", error.message);
-    }
-  };
+    fetchAccountData();
+  }, [userData, token]);
 
-  const handleFilterIncomes = async () => {
+  const handleFilterTransactions = async () => {
     try {
-      const incomesData = await getIncomesByAccountService({ cc_num: ccNum });
-      setIncomes(incomesData);
+      let result = [];
+      if (transactionType === "expenses") {
+        result = await getExpensesByCategoryAndAccountService({
+          cc_num: accountData,
+          category,
+          token,
+        });
+      } else if (transactionType === "incomes") {
+        result = await getIncomesByCategoryAndAccountService({
+          cc_num: accountData,
+          category,
+          token,
+        });
+      }
+      setTransactions(result);
     } catch (error) {
-      console.error("Error fetching incomes:", error.message);
-    }
-  };
-
-  const handleFilterTotalExpenses = async () => {
-    try {
-      const totalExpensesData = await getTotalExpensesByAccountService({
-        cc_num: ccNum,
-      });
-      setTotalExpenses(totalExpensesData.total);
-    } catch (error) {
-      console.error("Error fetching total expenses:", error.message);
-    }
-  };
-
-  const handleFilterTotalIncomes = async () => {
-    try {
-      const totalIncomesData = await getTotalIncomesByAccountService({
-        cc_num: ccNum,
-      });
-      setTotalIncomes(totalIncomesData.total);
-    } catch (error) {
-      console.error("Error fetching total incomes:", error.message);
-    }
-  };
-
-  const handleFilterExpensesByCategory = async () => {
-    try {
-      const categoryExpenses = await getExpensesByCategoryAndAccountService({
-        cc_num: ccNum,
-        category,
-      });
-      setExpenses(categoryExpenses);
-    } catch (error) {
-      console.error("Error fetching expenses by category:", error.message);
-    }
-  };
-
-  const handleFilterIncomesByCategory = async () => {
-    try {
-      const categoryIncomes = await getIncomesByCategoryAndAccountService({
-        cc_num: ccNum,
-        category,
-      });
-      setIncomes(categoryIncomes);
-    } catch (error) {
-      console.error("Error fetching incomes by category:", error.message);
+      setError(error.message);
     }
   };
 
   return (
     <div>
-      <h1>Transaction Filter</h1>
+      <h2>Filter Transaction</h2>
       <div>
-        <label>Account Number:</label>
-        <input
-          type="text"
-          value={ccNum}
-          onChange={(e) => setCcNum(e.target.value)}
-        />
-        <button onClick={handleFilterByAccount}>Filter</button>
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+          <option value="">Select Category</option>
+          <option value="entertainment">entertainment</option>
+          <option value="food_dining">food_dining</option>
+          <option value="salary">salary</option>
+          <option value="gas_transport">gas_transport</option>
+          <option value="grocery_net">grocery_net</option>
+          <option value="grocery_pos">grocery_pos</option>
+          <option value="health_fitness">health_fitness</option>
+          <option value="home">home</option>
+          <option value="kids_pets">kids_pets</option>
+          <option value="misc_net">misc_net</option>
+          <option value="misc_pos">misc_pos</option>
+          <option value="personal_care">personal_care</option>
+          <option value="shopping_net">shopping_net</option>
+          <option value="shopping_pos">shopping_pos</option>
+          <option value="travel">travel</option>
+        </select>
+        <select
+          value={transactionType}
+          onChange={(e) => setTransactionType(e.target.value)}
+        >
+          <option value="expenses">Expenses</option>
+          <option value="incomes">Incomes</option>
+        </select>
+        <button onClick={handleFilterTransactions}>Filter Transactions</button>
       </div>
-      <div>
-        <label>Transaction ID:</label>
-        <input type="text" value={id} onChange={(e) => setId(e.target.value)} />
-        <button onClick={handleFilterById}>Filter</button>
-      </div>
-      <div>
-        <label>Category:</label>
-        <input
-          type="text"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        />
-        <button onClick={handleFilterByCategory}>Filter</button>
-      </div>
-      <div>
-        <label>Start Date:</label>
-        <input
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-        <label>End Date:</label>
-        <input
-          type="date"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        />
-        <button onClick={handleFilterByDateRange}>Filter</button>
-      </div>
-      <div>
-        <button onClick={handleFilterExpenses}>Get Expenses</button>
-        <button onClick={handleFilterIncomes}>Get Incomes</button>
-        <button onClick={handleFilterTotalExpenses}>Get Total Expenses</button>
-        <button onClick={handleFilterTotalIncomes}>Get Total Incomes</button>
-      </div>
-      <div>
-        <label>Category:</label>
-        <input
-          type="text"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        />
-        <button onClick={handleFilterExpensesByCategory}>
-          Filter Expenses
-        </button>
-        <button onClick={handleFilterIncomesByCategory}>Filter Incomes</button>
-      </div>
-      <div>
-        <h2>Transactions:</h2>
+      {accountData && (
+        <div>
+          <p>Account: {accountData}</p>
+        </div>
+      )}
+      {transactions.length > 0 && (
         <ul>
-          {transactions.map((transaction) => (
-            <li key={transaction.id}>
-              {/* Mostrar detalles de la transacción */}
+          {transactions.map((transaction, index) => (
+            <li key={index}>
+              {transaction.category} - {transaction.amount}
             </li>
           ))}
         </ul>
-      </div>
-      <div>
-        <h2>Expenses:</h2>
-        <ul>
-          {expenses.map((expense) => (
-            <li key={expense.id}>{/* Mostrar detalles del gasto */}</li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h2>Incomes:</h2>
-        <ul>
-          {incomes.map((income) => (
-            <li key={income.id}>{/* Mostrar detalles del ingreso */}</li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h2>Total Expenses: ${totalExpenses}</h2>
-        <h2>Total Incomes: ${totalIncomes}</h2>
-      </div>
+      )}
+      {error && <p>Error: {error}</p>}
     </div>
   );
 };
 
-export default TransactionFilterPage;
+export default CreateFilterTransaction;

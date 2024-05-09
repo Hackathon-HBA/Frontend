@@ -1,5 +1,5 @@
 import React from "react";
-import CreateFuturePlans from "../../components/transactions/CreateFuturePlans";
+//import CreateFuturePlans from "../../components/transactions/CreateFuturePlans";
 
 function App() {
   return (
