@@ -92,10 +92,15 @@ const Sidebar = ({ handleSectionChange }) => {
               )}
               {isAuth(token) && (
                 <SidebarLink
-                name="Balance de transacciones"
-                isActive={activeLink === "balance-transaction"}
-                onClick={() => handleLinkClick("balance-transaction", "/balance-transaction")}
-                icon={<TiMessages />}
+                  name="Balance de transacciones"
+                  isActive={activeLink === "balance-transaction"}
+                  onClick={() =>
+                    handleLinkClick(
+                      "balance-transaction",
+                      "/balance-transaction"
+                    )
+                  }
+                  icon={<TiMessages />}
                 />
               )}
               {isAuth(token) && (
@@ -103,7 +108,7 @@ const Sidebar = ({ handleSectionChange }) => {
                   name="Planes de futuro"
                   isActive={activeLink === "future-plans"}
                   onClick={() =>
-                    handleLinkClick("future-plans", "future-plans")
+                    handleLinkClick("future-plans", "/future-plans")
                   }
                   icon={<FaStar />}
                 />
@@ -120,7 +125,6 @@ const Sidebar = ({ handleSectionChange }) => {
                 onClick={() => handleLinkClick("contact", "/contact")}
                 icon={<TiMessages />}
               />
-              
             </div>
 
             {isAdmin(token) && (
