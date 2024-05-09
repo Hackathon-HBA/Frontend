@@ -128,6 +128,7 @@ const CreateBalanceTransaction = () => {
   return (
     <div style={{ textAlign: "center" }}>
       <div style={{ marginBottom: "20px" }}>
+      <br></br>
         <label htmlFor="account">Seleccione Cuenta:</label>
         <select
           id="account"
@@ -148,6 +149,7 @@ const CreateBalanceTransaction = () => {
             ))}
         </select>
       </div>
+      <br></br>
       {totalIncomesData && totalExpensesData && (
         <div
           style={{
@@ -213,6 +215,7 @@ const CreateBalanceTransaction = () => {
           </div>
         </div>
       )}
+      <br></br>
       {expensesAccountData && (
         <div>
           <h2>Gastos</h2>
@@ -228,6 +231,7 @@ const CreateBalanceTransaction = () => {
           />
         </div>
       )}
+      <br></br>
       {incomesAccountData && (
         <div>
           <h2>Ingresos</h2>
@@ -241,7 +245,9 @@ const CreateBalanceTransaction = () => {
             paginate={paginateIncomes}
             currentPage={incomesCurrentPage}
           />
+          <br></br>
         </div>
+        
       )}
       {error && <p>Error: {error}</p>}
     </div>
