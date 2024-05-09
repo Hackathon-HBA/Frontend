@@ -354,7 +354,7 @@ export const getIncomesByAccountService = async ({ cc_num, token }) => {
 };
 
 // Gastos
-export const getTotalExpensesByAccountService = async ({ cc_num, token}) => {
+export const getTotalExpensesByAccountService = async ({ cc_num, token }) => {
   try {
     const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/expenses/total`, {
       method: 'GET',
@@ -446,6 +446,30 @@ export const listTransactionsByDateRangeAndAccountService = async ({ startDate, 
     const json = await response.json();
     if (!response.ok) {
       throw new Error(json.message || 'Failed to fetch transactions by date range and account');
+    }
+
+    return json;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+// ========== Preventions ==========
+
+export const createPreventionsService = async (token, cc_num) => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/preventions}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({ cc_num })
+    });
+
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.message || 'Failed to create preventions');
     }
 
     return json;
