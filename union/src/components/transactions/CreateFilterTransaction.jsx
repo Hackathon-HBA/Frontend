@@ -61,7 +61,10 @@ const CreateFilterTransaction = () => {
   // Función para calcular el índice del primer y último elemento en la página actual
   const indexOfLastTransaction = currentPage * 10;
   const indexOfFirstTransaction = indexOfLastTransaction - 10;
-  const currentTransactions = transactions.slice(indexOfFirstTransaction, indexOfLastTransaction);
+  const currentTransactions = transactions.slice(
+    indexOfFirstTransaction,
+    indexOfLastTransaction
+  );
 
   // Cambiar de página
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -71,35 +74,35 @@ const CreateFilterTransaction = () => {
     const pageCount = Math.ceil(transactions.length / 10);
     const pagesToShow = 5; // Mostrar cinco botones a la vez
     const currentPageIndex = currentPage - 1; // Índice de la página actual
-    
+
     // Calcular el rango de páginas a mostrar
     let startPageIndex = currentPageIndex - Math.floor(pagesToShow / 2);
     let endPageIndex = currentPageIndex + Math.floor(pagesToShow / 2);
-    
+
     // Ajustar el rango si se excede el número total de páginas
     if (startPageIndex < 0) {
       endPageIndex -= startPageIndex; // Reducir el exceso de páginas al inicio
       startPageIndex = 0;
     }
     if (endPageIndex >= pageCount) {
-      startPageIndex -= (endPageIndex - (pageCount - 1)); // Ajustar el inicio para no exceder el total
-      endPageIndex = pageCount - 1;
+      startPageIndex -= endPageIndex - (pageCount - -1); // Ajustar el inicio para no exceder el total
+      endPageIndex = pageCount - -1;
     }
-    
+
     // Generar los botones de paginación dentro del rango calculado
     const paginationButtons = [];
     for (let i = startPageIndex; i <= endPageIndex; i++) {
       paginationButtons.push(
         <button
           key={i}
-          className={currentPage === i + 1 ? 'active' : ''}
+          className={currentPage === i + 1 ? "active" : ""}
           onClick={() => paginate(i + 1)}
         >
           {i + 1}
         </button>
       );
     }
-    
+
     return paginationButtons;
   };
 
@@ -175,9 +178,7 @@ const CreateFilterTransaction = () => {
       {/* Paginación */}
       <div className="pagination">
         {transactions.length > 0 && (
-          <div className="pagination-list">
-            {renderPaginationButtons()}
-          </div>
+          <div className="pagination-list">{renderPaginationButtons()}</div>
         )}
       </div>
     </div>

@@ -57,7 +57,8 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-p , input {
+p,
+input {
   font-family: "Lato", sans-serif;
   display: block;
 }
@@ -85,7 +86,7 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
+    color: #94afc7;
     background-color: #ffffff;
   }
 

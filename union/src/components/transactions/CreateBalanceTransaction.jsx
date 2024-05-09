@@ -128,7 +128,7 @@ const CreateBalanceTransaction = () => {
   return (
     <div style={{ textAlign: "center" }}>
       <div style={{ marginBottom: "20px" }}>
-      <br></br>
+        <br></br>
         <label htmlFor="account">Seleccione Cuenta:</label>
         <select
           id="account"
@@ -163,7 +163,8 @@ const CreateBalanceTransaction = () => {
               width: "300px",
               height: "300px",
               borderRadius: "50%",
-              backgroundColor: "red",
+              backgroundColor: "white",
+              border: "10px solid red",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -172,7 +173,7 @@ const CreateBalanceTransaction = () => {
             }}
           >
             <div style={{ fontSize: "20px" }}>
-              {totalIncomesData.totalExpenses}
+              {totalIncomesData.totalExpenses.toFixed(2)}€
             </div>
             <div
               style={{
@@ -191,7 +192,8 @@ const CreateBalanceTransaction = () => {
               width: "300px",
               height: "300px",
               borderRadius: "50%",
-              backgroundColor: "green",
+              backgroundColor: "white",
+              border: "10px solid green",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -199,7 +201,7 @@ const CreateBalanceTransaction = () => {
             }}
           >
             <div style={{ fontSize: "20px" }}>
-              {totalExpensesData.totalIncomes}
+              {totalExpensesData.totalIncomes.toFixed(2)}€
             </div>
             <div
               style={{
@@ -247,7 +249,6 @@ const CreateBalanceTransaction = () => {
           />
           <br></br>
         </div>
-        
       )}
       {error && <p>Error: {error}</p>}
     </div>

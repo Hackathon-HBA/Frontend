@@ -1,119 +1,115 @@
 .mainContact {
-    --main-red-color: #a9191f;
-    --dark-grey-color: #2d2d2d;
-    --light-grey-color: #b8b8b8;
-    border-radius: 25px;
-    box-shadow: var(--box-shadow);
-    padding: 40px;
-    margin: 50px 0px;
-    text-align: center;
-    background-color: var(--dark-grey-color);
-    color: #fff;
+  --main-red-color: #a9191f;
+  --dark-grey-color: #2d2d2d;
+  --light-grey-color: #b8b8b8;
+  border-radius: 25px;
+  box-shadow: var(--box-shadow);
+  padding: 40px;
+  margin: 50px 0px;
+  text-align: center;
+  background-color: var(--dark-grey-color);
+  color: #fff;
   width: 75vw;
+}
+
+.titleContact {
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  border-bottom: 3px solid#a9191f;
+}
+.cabeceraContactos {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 40px;
+  padding: 1rem;
+  width: 90%;
+  border-bottom: 5px solid var--main-red-color;
+  border-left: 5px solid var--main-red-color;
+  border-radius: 25px;
+  background-color: #2d2d2d;
+  color: white;
+}
+
+.FormContact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 40px;
+  padding: 1rem;
+  width: 90%;
+  box-shadow: var(--box-shadow);
+  border: 2px solid var(--main-red-color);
+  border-radius: 25px;
+  background-color: #2d2d2d;
+  color: white;
+}
+
+legend {
+  font-size: 1.5rem;
+  border-bottom: 3px solid#a9191f;
+}
+
+.labelImputConectForm {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: left;
+  width: 100%;
+  margin-top: 20px;
+  padding: 0px 20px;
+}
+
+.inputFormContac::placeholder {
+  color: white;
+  font-size: 0.8rem;
+}
+
+.repuestacondicionalcontact {
+  margin: 0 20px;
+  padding: 40px;
+  border: 3px solid white;
+  border-radius: 25px;
+  background-color: var(--main-red-color);
+  color: white;
+  display: "inline-block";
+}
+
+.ButtonContact {
+  background: var(--main-red-color);
+  color: white;
+  margin: 1rem auto;
+  padding: 10px 40px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .mainContact {
+    width: 85vw;
+    padding: 20px;
+    margin: 30px 0px;
   }
-  
+
   .titleContact {
-    color: #fff;
-    font-family: "Montserrat", sans-serif;
-    font-size: 3rem;
-    margin-bottom: 2rem;
-    border-bottom: 3px solid#a9191f;
+    font-size: 2rem;
+    margin-bottom: 1rem;
   }
-  .cabeceraContactos {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin: 40px;
-    padding: 1rem;
-    width: 90%;
-    border-bottom: 5px solid var--main-red-color;
-    border-left: 5px solid var--main-red-color;
-    border-radius: 25px;
-    background-color: #2d2d2d;
-    color: white;
-  }
-  
+
+  .cabeceraContactos,
   .FormContact {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    margin: 40px;
-    padding: 1rem;
-    width: 90%;
-    box-shadow: var(--box-shadow);
-    border: 2px solid var(--main-red-color);
-    border-radius: 25px;
-    background-color: #2d2d2d;
-    color: white;
+    margin: 20px;
+    padding: 0.5rem;
   }
-  
   legend {
-    font-size: 1.5rem;
-    border-bottom: 3px solid#a9191f;
-    
+    margin: 0 1.5rem;
+    padding-bottom: 0.5rem;
   }
-  
-  .labelImputConectForm {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: left;
-    width: 100%;
-    margin-top: 20px;
-    padding: 0px 20px;
-    
-  }
-  
-  .inputFormContac::placeholder {
-    color: white;
-    font-size: 0.8rem;
-  }
-  
-  .repuestacondicionalcontact {
-    margin: 0 20px;
-    padding: 40px;
-    border: 3px solid white;
-    border-radius: 25px;
-    background-color: var(--main-red-color);
-    color: white;
-    display: "inline-block";
-  }
-  
   .ButtonContact {
-    background: var(--main-red-color);
-    color: white;
-    margin: 1rem auto;
-    padding: 10px 40px;
-    cursor: pointer;
-    font-size: 20px;
+    padding: 10px 20px;
   }
-  
-  @media only screen and (max-width: 600px) {
-    .mainContact {
-      width: 85vw;
-      padding: 20px;
-      margin: 30px 0px;
-    }
-  
-    .titleContact {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-  
-    .cabeceraContactos,
-    .FormContact {
-      margin: 20px;
-      padding: 0.5rem;
-    }
-    legend {
-     margin: 0 1.5rem;
-     padding-bottom:0.5rem;
-    }
-    .ButtonContact {
-      padding: 10px 20px;
-    }
-  }
-  
-  
+}

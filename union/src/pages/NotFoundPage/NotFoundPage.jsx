@@ -34,12 +34,6 @@ const NotFoundPage = () => {
         color: {
           value: "#2d2d2d",
         },
-        image:
-          "url('https://cdn.discordapp.com/attachments/1237727784017596456/1237848443439808522/image.png?ex=663d23b3&is=663bd233&hm=51add508558cca8a7cd78d742a817fc9196b91e9b3636fd63a999f8e378b8e15&')",
-        position: "50% 50%",
-        repeat: "no-repeat",
-        size: "20%",
-        opacity: 1,
       },
       fpsLimit: 120,
       interactivity: {
@@ -114,7 +108,7 @@ const NotFoundPage = () => {
       <div className="mainErrorContent">
         <div className="box">
           <h1 className="title" onClick={() => handleClick("title")}>
-            ¿Te has perdido?
+            En desarrollo
           </h1>
           <button className="errorButton" onClick={() => navigate("/")}>
             Volver a Union
@@ -133,4 +127,3 @@ const NotFoundPage = () => {
 };
 
 export default NotFoundPage;
-
