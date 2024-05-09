@@ -235,22 +235,6 @@ export const createTransactionService = async (transactionData, token) => {
   }
 };
 
-export const getTransactionsByAccountService = async ({ cc_num }) => {
-  try {
-    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/transactions/account/${cc_num}`, {
-      method: 'GET',
-    });
-
-    const json = await response.json();
-    if (!response.ok) {
-      throw new Error(json.message || 'Failed to fetch transactions for account');
-    }
-
-    return json;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
 
 export const getTransactionByIdService = async ({ id }) => {
   try {
@@ -307,10 +291,13 @@ export const deleteTransactionService = async ({ id }) => {
   }
 };
 
-export const listTransactionsByCategoryService = async ({ category }) => {
+export const listTransactionsByCategoryService = async ({ category, token }) => {
   try {
     const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/transactions/category/${category}`, {
       method: 'GET',
+      headers: {
+        Authorization: token,
+      },
     });
 
     const json = await response.json();
@@ -410,10 +397,13 @@ export const getTotalIncomesByAccountService = async ({ cc_num, token }) => {
   }
 };
 
-export const getExpensesByCategoryAndAccountService = async ({ cc_num, category }) => {
+export const getExpensesByCategoryAndAccountService = async ({ cc_num, category, token }) => {
   try {
     const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/expenses/category/${category}`, {
       method: 'GET',
+      headers: {
+        Authorization: token,
+      },
     });
 
     const json = await response.json();
@@ -427,10 +417,13 @@ export const getExpensesByCategoryAndAccountService = async ({ cc_num, category 
   }
 };
 
-export const getIncomesByCategoryAndAccountService = async ({ cc_num, category }) => {
+export const getIncomesByCategoryAndAccountService = async ({ cc_num, category, token }) => {
   try {
     const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/incomes/category/${category}`, {
       method: 'GET',
+      headers: {
+        Authorization: token,
+      },
     });
 
     const json = await response.json();
