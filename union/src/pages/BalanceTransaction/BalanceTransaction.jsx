@@ -1,10 +1,11 @@
 import React from "react";
-import CreateFilterTransaction from "../../components/transactions/CreateFilterTransaction";
+import CreateBalanceTransaction from "../../components/transactions/CreateBalanceTransaction";
 
 function App() {
   return (
     <div className="App">
       <h1>Welcome to the Balance Transaction System</h1>
+      <CreateBalanceTransaction />
     </div>
   );
 }
