@@ -29,6 +29,9 @@ const Sidebar = ({ handleSectionChange }) => {
       "/profile": "profile",
       "/contact": "contact",
       "/users": "users",
+      "/balance-transaction": "balance-transaction",
+      "/filter-transaction": "filter-transaction",
+      "/future-plans": "future-plans",
       "/login": "login",
       "/about": "about",
       "/admin": "admin",
@@ -87,18 +90,37 @@ const Sidebar = ({ handleSectionChange }) => {
                   icon={<FaStar />}
                 />
               )}
+              {isAuth(token) && (
+                <SidebarLink
+                name="Balance de transacciones"
+                isActive={activeLink === "balance-transaction"}
+                onClick={() => handleLinkClick("balance-transaction", "/balance-transaction")}
+                icon={<TiMessages />}
+                />
+              )}
+              {isAuth(token) && (
+                <SidebarLink
+                  name="Planes de futuro"
+                  isActive={activeLink === "future-plans"}
+                  onClick={() =>
+                    handleLinkClick("future-plans", "future-plans")
+                  }
+                  icon={<FaStar />}
+                />
+              )}
               <SidebarLink
-                name="Planes de futuro"
+                name="Sobre nostros"
                 isActive={activeLink === "about"}
                 onClick={() => handleLinkClick("about", "/about")}
                 icon={<IoMdInformationCircle />}
               />
               <SidebarLink
-                name="Balance de transacciones"
+                name="Contacto"
                 isActive={activeLink === "contact"}
                 onClick={() => handleLinkClick("contact", "/contact")}
                 icon={<TiMessages />}
               />
+              
             </div>
 
             {isAdmin(token) && (
