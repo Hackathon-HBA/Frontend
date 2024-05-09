@@ -170,6 +170,7 @@ export const updataUserPasswordService = async ({ password, token, id }) => {
 export const createAccountService = async ({ user_id, cc_num }) => {
   try {
     const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts`, {
+
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
