@@ -1,5 +1,5 @@
 import React from "react";
-//import CreateBalanceTransaction from "../../components/transactions/CreateBalanceTransaction";
+import CreateBalanceTransaction from "../../components/transactions/CreateBalanceTransaction";
 
 function App() {
   return (
