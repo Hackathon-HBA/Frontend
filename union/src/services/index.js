@@ -1,5 +1,3 @@
-// connect to DB
-
 export const registerUserService = async ({ username, email, password }) => {
   try {
     const response = await fetch(
@@ -163,6 +161,281 @@ export const updataUserPasswordService = async ({ password, token, id }) => {
     if (!response.ok) {
       throw new Error(json.message);
     }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+// ========== Accounts ==========
+export const createAccountService = async ({ user_id, cc_num }) => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ user_id, cc_num }),
+    });
+
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.message || 'Failed to create account');
+    }
+
+    return json;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const getAccountService = async ({ user_id }) => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${user_id}`, {
+      method: 'GET',
+    });
+
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.message || 'Failed to fetch account');
+    }
+
+    return json;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+// ========== Transactions ==========
+export const createTransactionService = async (transactionData, token) => {
+  try {
+    console.log(transactionData);
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/transactions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+
+      },
+      body: JSON.stringify(transactionData),
+    });
+
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.message || 'Failed to create transaction');
+    }
+
+    return json;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const getTransactionsByAccountService = async ({ cc_num }) => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/transactions/account/${cc_num}`, {
+      method: 'GET',
+    });
+
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.message || 'Failed to fetch transactions for account');
+    }
+
+    return json;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const getTransactionByIdService = async ({ id }) => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/transactions/${id}`, {
+      method: 'GET',
+    });
+
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.message || 'Failed to fetch transaction by ID');
+    }
+
+    return json;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const updateTransactionService = async ({ id, transactionData }) => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/transactions/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(transactionData),
+    });
+
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.message || 'Failed to update transaction');
+    }
+
+    return json;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const deleteTransactionService = async ({ id }) => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/transactions/${id}`, {
+      method: 'DELETE',
+    });
+
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.message || 'Failed to delete transaction');
+    }
+
+    return json;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const listTransactionsByCategoryService = async ({ category }) => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/transactions/category/${category}`, {
+      method: 'GET',
+    });
+
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.message || 'Failed to fetch transactions by category');
+    }
+
+    return json;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const getExpensesByAccountService = async ({ cc_num }) => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/expenses`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.message || 'Failed to fetch expenses');
+    }
+
+    return json;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const getIncomesByAccountService = async ({ cc_num }) => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/incomes`, {
+      method: 'GET',
+    });
+
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.message || 'Failed to fetch incomes');
+    }
+
+    return json;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const getTotalExpensesByAccountService = async ({ cc_num }) => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/expenses/total`, {
+      method: 'GET',
+    });
+
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.message || 'Failed to fetch total expenses');
+    }
+
+    return json;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const getTotalIncomesByAccountService = async ({ cc_num }) => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/incomes/total`, {
+      method: 'GET',
+    });
+
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.message || 'Failed to fetch total incomes');
+    }
+
+    return json;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const getExpensesByCategoryAndAccountService = async ({ cc_num, category }) => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/expenses/category/${category}`, {
+      method: 'GET',
+    });
+
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.message || 'Failed to fetch expenses by category');
+    }
+
+    return json;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const getIncomesByCategoryAndAccountService = async ({ cc_num, category }) => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/incomes/category/${category}`, {
+      method: 'GET',
+    });
+
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.message || 'Failed to fetch incomes by category');
+    }
+
+    return json;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const listTransactionsByDateRangeAndAccountService = async ({ startDate, endDate, cc_num }) => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/transactions/daterange?startDate=${startDate}&endDate=${endDate}&cc_num=${cc_num}`, {
+      method: 'GET',
+    });
+
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.message || 'Failed to fetch transactions by date range and account');
+    }
+
+    return json;
   } catch (error) {
     throw new Error(error.message);
   }

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 import SidebarLink from "./SidebarLink";
 import { IoMdLogOut, IoMdInformationCircle, IoIosPerson } from "react-icons/io";
-import { FaHome, FaStar} from "react-icons/fa";
+import { FaHome, FaStar } from "react-icons/fa";
 import { TiMessages } from "react-icons/ti";
 import { RiAdminFill } from "react-icons/ri";
 import { TbUsersGroup, TbWritingSign } from "react-icons/tb";
@@ -17,8 +17,8 @@ const Sidebar = ({ handleSectionChange }) => {
   const [activeLink, setActiveLink] = useState("home");
   const navigate = useNavigate();
   //const { token, setToken, loggedUser } = useContext(TokenContext);
-  const { setToken, setLogin, setAuth, token, userData } = useContext(AuthContext);
-
+  const { setToken, setLogin, setAuth, token, userData } =
+    useContext(AuthContext);
 
   useEffect(() => {
     const path = location.pathname;
@@ -69,28 +69,32 @@ const Sidebar = ({ handleSectionChange }) => {
               />
               {isAuth(token) && (
                 <SidebarLink
-                  name="Crear Post"
+                  name="Crear Transacción"
                   isActive={activeLink === "createpost"}
-                  onClick={() => handleLinkClick("createpost", "/createpost")}
+                  onClick={() =>
+                    handleLinkClick("createpost", "/new-transaction")
+                  }
                   icon={<BsPencilSquare />}
                 />
               )}
               {isAuth(token) && (
                 <SidebarLink
-                  name="Favoritos"
-                  isActive={activeLink === "favorites"}
-                  onClick={() => handleLinkClick("favorites", "/favorites")}
+                  name="Filtrar Transacciones"
+                  isActive={activeLink === "filter-transaction"}
+                  onClick={() =>
+                    handleLinkClick("filter-transaction", "filter-transaction")
+                  }
                   icon={<FaStar />}
                 />
               )}
               <SidebarLink
-                name="About"
+                name="Planes de futuro"
                 isActive={activeLink === "about"}
                 onClick={() => handleLinkClick("about", "/about")}
                 icon={<IoMdInformationCircle />}
               />
               <SidebarLink
-                name="Contacto"
+                name="Balance de transacciones"
                 isActive={activeLink === "contact"}
                 onClick={() => handleLinkClick("contact", "/contact")}
                 icon={<TiMessages />}
@@ -161,9 +165,10 @@ const Sidebar = ({ handleSectionChange }) => {
           </div>
           {isAuth(token) && userData && (
             <div className="sidebar__account">
-
               <div className="sidebar__names">
-                <h3 className="sidebar__name">{userData.name} {userData.lastname}</h3>
+                <h3 className="sidebar__name">
+                  {userData.name} {userData.lastname}
+                </h3>
                 <span className="sidebar__email">{userData.email}</span>
               </div>
             </div>

@@ -5,11 +5,9 @@ import "./index.css";
 //import Profile from "./pages/UserProfile/Profile";
 import Contact from "./pages/Contact/Contact";
 
-
 import About from "./pages/about/About";
 //import Admin from "./pages/Admin/Admin";
 //import User from "./pages/Admin/User";
-
 
 import { CustomTokenContextProvider } from "./utils/TokenContext";
 
@@ -22,12 +20,13 @@ import SendEmailPage from "./pages/SendEmailPage";
 import ProfilePage from "./pages/ProfilePage";
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
+import NewTransaction from "./pages/NewTransaction/NewTransaction";
+import FilterTransaction from "./pages/FilterTransaction/FilterTransaction";
 
-
-import './index.css'
+import "./index.css";
 import { AuthProviderComponent } from "./context/AuthContext";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Router>
       <AuthProviderComponent>
@@ -40,6 +39,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             {/* <Route path="/profile" element={<Profile />} /> */}
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
+            <Route path="/new-transaction" element={<NewTransaction />} />
+            <Route path="/filter-transaction" element={<FilterTransaction />} />
             {/* {PrivateRoute() ? (<Route path="/admin" element={<Admin />} />) : <Route path="/*" element={<Error />} />}
             {PrivateRoute() ? (<Route path="/users" element={<User />} />) : <Route path="/*" element={<Error />} />} */}
             <Route path="/*" element={<NotFoundPage />} />
@@ -48,4 +49,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       </AuthProviderComponent>
     </Router>
   </React.StrictMode>
-)
+);
