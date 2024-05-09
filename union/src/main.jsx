@@ -22,6 +22,8 @@ import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import NewTransaction from "./pages/NewTransaction/NewTransaction";
 import FilterTransaction from "./pages/FilterTransaction/FilterTransaction";
+import BalanceTransaction from "./pages/BalanceTransaction/BalanceTransaction"
+import FuturePlans from "./pages/FuturePlans/FuturePlans"
 
 import "./index.css";
 import { AuthProviderComponent } from "./context/AuthContext";
@@ -41,6 +43,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/about" element={<About />} />
             <Route path="/new-transaction" element={<NewTransaction />} />
             <Route path="/filter-transaction" element={<FilterTransaction />} />
+            <Route path="/balance-transaction" element={<BalanceTransaction />} />
+            <Route path="/future-plans" element={<FuturePlans />} />
             {/* {PrivateRoute() ? (<Route path="/admin" element={<Admin />} />) : <Route path="/*" element={<Error />} />}
             {PrivateRoute() ? (<Route path="/users" element={<User />} />) : <Route path="/*" element={<Error />} />} */}
             <Route path="/*" element={<NotFoundPage />} />
