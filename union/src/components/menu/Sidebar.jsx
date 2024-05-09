@@ -33,7 +33,6 @@ const Sidebar = ({ handleSectionChange }) => {
       "/filter-transaction": "filter-transaction",
       "/future-plans": "future-plans",
       "/login": "login",
-      "/about": "about",
       "/admin": "admin",
       "/createpost": "createpost",
       "/favorites": "favorites",
@@ -113,12 +112,7 @@ const Sidebar = ({ handleSectionChange }) => {
                   icon={<FaStar />}
                 />
               )}
-              <SidebarLink
-                name="Sobre nostros"
-                isActive={activeLink === "about"}
-                onClick={() => handleLinkClick("about", "/about")}
-                icon={<IoMdInformationCircle />}
-              />
+
               <SidebarLink
                 name="Contacto"
                 isActive={activeLink === "contact"}

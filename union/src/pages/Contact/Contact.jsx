@@ -6,7 +6,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Contact = () => {
-
   const [inputsubject, setInputSubject] = useState("");
   const [inputemail, setInputEmail] = useState("");
   const [inputbody, setInputBody] = useState("");
@@ -14,11 +13,10 @@ const Contact = () => {
   const handleForm = async (e) => {
     e.preventDefault();
     try {
-
       const formData = new FormData();
       formData.append("subject", e.target.subject.value);
       formData.append("email", e.target.email.value);
-      formData.append("body",  e.target.body.value);
+      formData.append("body", e.target.body.value);
 
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/contact`,
@@ -31,11 +29,10 @@ const Contact = () => {
       );
       if (!response) {
         throw new Error("sin respuesta");
-
       }
-      setInputSubject("")
-      setInputEmail("")
-      setInputBody("")
+      setInputSubject("");
+      setInputEmail("");
+      setInputBody("");
 
       toast.success(response.data);
     } catch (error) {
@@ -51,17 +48,15 @@ const Contact = () => {
         <h1 className="titleContact">Contacta con nosotros</h1>
 
         <article className="cabeceraContactos">
-          <h2>Un lugar donde todas las noticias tienen su espacio y valor.</h2>
+          <h2>Un lugar donde todos podemos ahorrar.</h2>
           <p>
-            FakNews es un periódico digital participativo de buenas noticias
-            fundado en el año 2023 y en el que publicamos cada día noticias
-            positivas, historias, acontecimientos o sucesos positivos,
-            entrevistas a gente que tiene algo bueno que contar… ¡porque tod@s
-            tenemos algo bueno y siempre hay algo bueno que contar!
+            Esta es la interfaz de usuario para "Union", una plataforma de
+            gestión de finanzas personales y de negocios. Este frontend está
+            diseñado para proporcionar una experiencia de usuario fluida y
+            atractiva, permitiendo a los usuarios interactuar eficazmente con el
+            backend a través de una serie de características intuitivas y
+            responsivas.
             <br />
-            Colabora con nosotros compartiendo tus noticias con nosotros y si
-            tienes algo productivo que contarnos envianos un comentario aquí
-            abajo.
           </p>
         </article>
       </section>
@@ -69,7 +64,6 @@ const Contact = () => {
         <form className="contactMessage" onSubmit={handleForm}>
           <legend>Contacte con nosostros aquí</legend>
           <div className="labelImputConectForm">
-            
             <input
               className="inputFormContac"
               type="text"
@@ -80,8 +74,7 @@ const Contact = () => {
               value={inputsubject}
               required
             />
-        
-          
+
             <input
               className="inputFormContac"
               type="email"
@@ -92,7 +85,7 @@ const Contact = () => {
               value={inputemail}
               required
             />
-            
+
             <input
               className="inputFormContac gruesoConsulta"
               type="text"

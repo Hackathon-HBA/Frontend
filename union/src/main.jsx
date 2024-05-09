@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./index.css";
-//import Profile from "./pages/UserProfile/Profile";
 import Contact from "./pages/Contact/Contact";
 
 import About from "./pages/about/About";
@@ -17,8 +16,6 @@ import Login from "./pages/login/Login";
 import PrivateRoutes from "./components/user/PrivateRoutes";
 import LoginPage from "./pages/LoginPage";
 import SendEmailPage from "./pages/SendEmailPage";
-import ProfilePage from "./pages/ProfilePage";
-import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import NewTransaction from "./pages/NewTransaction/NewTransaction";
 import FilterTransaction from "./pages/FilterTransaction/FilterTransaction";
@@ -35,12 +32,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Menu />
         <div className="pages" id="pages">
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<About />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            {/* <Route path="/profile" element={<Profile />} /> */}
             <Route path="/contact" element={<Contact />} />
-            <Route path="/about" element={<About />} />
             <Route path="/new-transaction" element={<NewTransaction />} />
             <Route path="/filter-transaction" element={<FilterTransaction />} />
             <Route
