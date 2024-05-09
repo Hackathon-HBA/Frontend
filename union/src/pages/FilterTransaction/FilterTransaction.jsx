@@ -4,7 +4,7 @@ import CreateFilterTransaction from "../../components/transactions/CreateFilterT
 function App() {
   return (
     <div className="App">
-      <h1>Welcome to the Transaction Management System</h1>
+      <h1>Bienvenido al Sistema de Gestión de Transacciones</h1>
       <CreateFilterTransaction />
     </div>
   );
