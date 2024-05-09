@@ -5,6 +5,9 @@ import {
   getIncomesByCategoryAndAccountService,
 } from "../../services/index";
 import { AuthContext } from "../../context/AuthContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./styles.css"; // Importar el archivo CSS con los estilos
 
 const CreateFilterTransaction = () => {
   const [totalIncomes, setTotalIncomes] = useState(null);
@@ -14,6 +17,7 @@ const CreateFilterTransaction = () => {
   const [category, setCategory] = useState("");
   const [transactions, setTransactions] = useState([]);
   const [transactionType, setTransactionType] = useState("expenses");
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchAccountData = async () => {
@@ -24,7 +28,7 @@ const CreateFilterTransaction = () => {
         });
         setAccountData(data[0].cc_num);
       } catch (error) {
-        setError(error.message);
+        setError("No hay datas para los filtros introducidos");
       }
     };
 
@@ -49,19 +53,71 @@ const CreateFilterTransaction = () => {
       }
       setTransactions(result);
     } catch (error) {
+      toast.error("No hay datas para los filtros introducidos");
       setError(error.message);
     }
   };
 
+  // Función para calcular el índice del primer y último elemento en la página actual
+  const indexOfLastTransaction = currentPage * 10;
+  const indexOfFirstTransaction = indexOfLastTransaction - 10;
+  const currentTransactions = transactions.slice(indexOfFirstTransaction, indexOfLastTransaction);
+
+  // Cambiar de página
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Función para generar los botones de la paginación
+  const renderPaginationButtons = () => {
+    const pageCount = Math.ceil(transactions.length / 10);
+    const pagesToShow = 5; // Mostrar cinco botones a la vez
+    const currentPageIndex = currentPage - 1; // Índice de la página actual
+    
+    // Calcular el rango de páginas a mostrar
+    let startPageIndex = currentPageIndex - Math.floor(pagesToShow / 2);
+    let endPageIndex = currentPageIndex + Math.floor(pagesToShow / 2);
+    
+    // Ajustar el rango si se excede el número total de páginas
+    if (startPageIndex < 0) {
+      endPageIndex -= startPageIndex; // Reducir el exceso de páginas al inicio
+      startPageIndex = 0;
+    }
+    if (endPageIndex >= pageCount) {
+      startPageIndex -= (endPageIndex - (pageCount - 1)); // Ajustar el inicio para no exceder el total
+      endPageIndex = pageCount - 1;
+    }
+    
+    // Generar los botones de paginación dentro del rango calculado
+    const paginationButtons = [];
+    for (let i = startPageIndex; i <= endPageIndex; i++) {
+      paginationButtons.push(
+        <button
+          key={i}
+          className={currentPage === i + 1 ? 'active' : ''}
+          onClick={() => paginate(i + 1)}
+        >
+          {i + 1}
+        </button>
+      );
+    }
+    
+    return paginationButtons;
+  };
+
+  // Renderizar los botones de paginación
   return (
-    <div>
+    <div className="container">
+      <ToastContainer />
       <h2>Filter Transaction</h2>
-      <div>
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+      <div className="filter-section">
+        <select
+          className="select-category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
           <option value="">Select Category</option>
           <option value="entertainment">entertainment</option>
           <option value="food_dining">food_dining</option>
-          <option value="salary">salary</option>
+          <option value="Salary">salary</option>
           <option value="gas_transport">gas_transport</option>
           <option value="grocery_net">grocery_net</option>
           <option value="grocery_pos">grocery_pos</option>
@@ -76,29 +132,54 @@ const CreateFilterTransaction = () => {
           <option value="travel">travel</option>
         </select>
         <select
+          className="select-transaction-type"
           value={transactionType}
           onChange={(e) => setTransactionType(e.target.value)}
         >
           <option value="expenses">Expenses</option>
           <option value="incomes">Incomes</option>
         </select>
-        <button onClick={handleFilterTransactions}>Filter Transactions</button>
+        <button
+          className="filter-button"
+          onClick={() => {
+            handleFilterTransactions();
+            setCurrentPage(1); // Resetear la página a la primera cuando se filtra
+          }}
+        >
+          Filter Transactions
+        </button>
       </div>
       {accountData && (
         <div>
           <p>Account: {accountData}</p>
         </div>
       )}
-      {transactions.length > 0 && (
-        <ul>
-          {transactions.map((transaction, index) => (
-            <li key={index}>
-              {transaction.category} - {transaction.amount}
-            </li>
-          ))}
-        </ul>
+      {currentTransactions.length > 0 && (
+        <table className="transaction-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentTransactions.map((transaction, index) => (
+              <tr key={index}>
+                <td>{transaction.category}</td>
+                <td>{transaction.amount.toFixed(2)} €</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
-      {error && <p>Error: {error}</p>}
+      {/* Paginación */}
+      <div className="pagination">
+        {transactions.length > 0 && (
+          <div className="pagination-list">
+            {renderPaginationButtons()}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
