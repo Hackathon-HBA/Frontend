@@ -189,10 +189,14 @@ export const createAccountService = async ({ user_id, cc_num }) => {
   }
 };
 
-export const getAccountService = async ({ user_id }) => {
+export const getAccountService = async ({ user_id, token }) => {
   try {
     const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${user_id}`, {
       method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
     });
 
     const json = await response.json();
@@ -320,12 +324,13 @@ export const listTransactionsByCategoryService = async ({ category }) => {
   }
 };
 
-export const getExpensesByAccountService = async ({ cc_num }) => {
+export const getExpensesByAccountService = async ({ cc_num, token }) => {
   try {
     const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/expenses`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: token,
       },
     });
 
@@ -340,10 +345,14 @@ export const getExpensesByAccountService = async ({ cc_num }) => {
   }
 };
 
-export const getIncomesByAccountService = async ({ cc_num }) => {
+export const getIncomesByAccountService = async ({ cc_num, token }) => {
   try {
     const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/incomes`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      },
     });
 
     const json = await response.json();
@@ -357,10 +366,15 @@ export const getIncomesByAccountService = async ({ cc_num }) => {
   }
 };
 
-export const getTotalExpensesByAccountService = async ({ cc_num }) => {
+// Gastos
+export const getTotalExpensesByAccountService = async ({ cc_num, token}) => {
   try {
     const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/expenses/total`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      },
     });
 
     const json = await response.json();
@@ -374,10 +388,15 @@ export const getTotalExpensesByAccountService = async ({ cc_num }) => {
   }
 };
 
-export const getTotalIncomesByAccountService = async ({ cc_num }) => {
+// Ingresos
+export const getTotalIncomesByAccountService = async ({ cc_num, token }) => {
   try {
     const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/accounts/${cc_num}/incomes/total`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      },
     });
 
     const json = await response.json();

@@ -44,7 +44,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/new-transaction" element={<NewTransaction />} />
             <Route path="/filter-transaction" element={<FilterTransaction />} />
             <Route path="/balance-transaction" element={<BalanceTransaction />} />
-            <Route path="/future-plans" element={<FuturePlans />} />
+            {/* <Route path="/future-plans" element={<FuturePlans />} /> */}
             {/* {PrivateRoute() ? (<Route path="/admin" element={<Admin />} />) : <Route path="/*" element={<Error />} />}
             {PrivateRoute() ? (<Route path="/users" element={<User />} />) : <Route path="/*" element={<Error />} />} */}
             <Route path="/*" element={<NotFoundPage />} />

@@ -4,7 +4,7 @@ import CreateBalanceTransaction from "../../components/transactions/CreateBalanc
 function App() {
   return (
     <div className="App">
-      <h1>Welcome to the Balance Transaction System</h1>
+      <h1>Bienvenido al Sistema de Transacciones</h1>
       <CreateBalanceTransaction />
     </div>
   );
